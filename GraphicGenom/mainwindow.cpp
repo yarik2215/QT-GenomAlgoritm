@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#define FUNCTION sin(x);
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -14,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     gen_t etalArr[GEN_LENGTH];
     qreal x = 0;
     for(int i = 0; i < GEN_LENGTH; ++i) {
-        etalArr[i] = exp(sqrt(x) + 1) * sqrt(cos(log(x + 1)) + 3);
+        etalArr[i] = FUNCTION;//exp(sqrt(x) + 1) * sqrt(cos(log(x + 1)) + 3);
         etalonSeria->append(x,etalArr[i]);
         x += 0.1;
     }
@@ -25,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->verticalLayout_2->addWidget(chartView);
     plotChart();
-    thread1->start();
+    //thread1->start();
 }
 
 MainWindow::~MainWindow()
@@ -78,13 +80,12 @@ void MainWindow::replotChart()
 
 void MainWindow::on_pushButton_clicked()
 {
-    thread1->exit();
+    if(thread1->isRunning())thread1->exit();
     thread1->start();
     genom->fillRandom();
     genom->setMutateChance(ui->spinBox->value());
     genom->setEuqlidDist(ui->doubleSpinBox->value());
     emit startCalculation(10000000);
     //genom->printEuqlid();
-
     //replotChart();
 }

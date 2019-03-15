@@ -56,7 +56,7 @@ void GenomAlgoritm::calculate(int maxItterations)
         ++i;
         if(!(i % 100)) {
             emit plot();
-            QThread::msleep(500);
+            QThread::msleep(200);
         }
 
     } while (i < maxItterations && genomArr[0]->getEuqlidDist() > euqlidDist);
